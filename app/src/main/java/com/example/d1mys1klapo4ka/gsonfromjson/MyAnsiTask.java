@@ -4,17 +4,33 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by d1mys1klapo4ka on 06.06.2017.
  */
 
 public class MyAnsiTask extends AsyncTask<Void,Void,String> {
+
+    public ArrayList<String> nameAgency;
+    public ArrayList<String> priceAgency;
+    public ArrayList<String> phoneAgency;
+    public ArrayList<String> addressAgency;
+    public ArrayList<String> schrduleAgency;
+    public ArrayList<String> latitudeAgency;
+    public ArrayList<String> longitudeAgency;
+    public ArrayList<String> requisitesAgency;
+    public ArrayList<String> creditCardAgency;
 
     public static final String MY_TAG = "####";
 
@@ -45,18 +61,117 @@ public class MyAnsiTask extends AsyncTask<Void,Void,String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d(MY_TAG,resultJson);
+        Log.d(MY_TAG, resultJson);
+
+
+        JSONObject dataJsonObj = null;
+
+        try {
+
+            dataJsonObj = new JSONObject(resultJson);
+            JSONArray agencies = dataJsonObj.getJSONArray("agencies");
+
+            // 2. перебираем и выводим необходимые данные
+            for (int i = 0; i < agencies.length(); i++) {
+                JSONObject agent = agencies.getJSONObject(i);
+
+                String name = agent.getString("name");
+                //nameAgency.add(name);
+                Log.d("@@@@", name);
+
+//                priceAgency.add(agent.getString("price"));
+//                phoneAgency.add(agent.getString("phone"));
+//                addressAgency.add(agent.getString("address"));
+//                schrduleAgency.add(agent.getString("schrdule"));
+//                latitudeAgency.add(agent.getString("latitude"));
+//                longitudeAgency.add(agent.getString("longitude"));
+//                requisitesAgency.add(agent.getString("requisites"));
+//                creditCardAgency.add(agent.getString("credit_card"));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(MY_TAG, resultJson);
         return resultJson;
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        Log.d("@@@@", s);
+
+//        JSONObject dataJsonObj = null;
+//
+//        try {
+//            dataJsonObj = new JSONObject(s);
+//            JSONArray agencies = dataJsonObj.getJSONArray("agencies");
+//
+//            // 2. перебираем и выводим необходимые данные
+//            for (int i = 0; i < agencies.length(); i++) {
+//                JSONObject agent = agencies.getJSONObject(i);
+//
+//                nameAgency.add(agent.getString("name"));
+//                Log.d("@@@@", nameAgency.get(i));
+//                priceAgency.add(agent.getString("price"));
+//                phoneAgency.add(agent.getString("phone"));
+//                addressAgency.add(agent.getString("address"));
+//                schrduleAgency.add(agent.getString("schrdule"));
+//                latitudeAgency.add(agent.getString("latitude"));
+//                longitudeAgency.add(agent.getString("longitude"));
+//                requisitesAgency.add(agent.getString("requisites"));
+//                creditCardAgency.add(agent.getString("credit_card"));
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
-    public String stringJson(){
-        return resultJson;
+    public ArrayList<String> getNameAgencies(){
+        return nameAgency;
     }
 
+    //        price
+    public ArrayList<String> getPriceAgencies() {
+        return priceAgency;
+    }
+
+    //        phone
+    public ArrayList<String> getPhoneAgencies() {
+        return phoneAgency;
+    }
+
+    //        address
+    public ArrayList<String> getAddressAgencies() {
+        return addressAgency;
+    }
+
+    //        schrdule
+    public ArrayList<String> getSchrduleAgencies() {
+        return schrduleAgency;
+    }
+
+    //        latitude
+    public ArrayList<String> getLatitudeAgencies() {
+        return latitudeAgency;
+    }
+
+    //        longitude
+    public ArrayList<String> getLongitudeAgencies() {
+        return longitudeAgency;
+    }
+
+    //        requisites
+    public ArrayList<String> getRequisitesAgencies() {
+        return requisitesAgency;
+    }
+
+    //        credit_card
+    public ArrayList<String> getCreditCardAgencies() {
+        return creditCardAgency;
+    }
 }
+
