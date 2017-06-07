@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GsonfromJson.iml" filepath="$PROJECT_DIR$/GsonfromJson.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my_ansync_task.iml" filepath="$PROJECT_DIR$/my_ansync_task.iml" />
     </modules>
   </component>
 </project>

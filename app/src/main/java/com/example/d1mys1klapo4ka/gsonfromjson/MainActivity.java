@@ -18,14 +18,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+        MyAnsiTask myAnsiTask = new MyAnsiTask();
+
         switch (v.getId()){
             case R.id.button:
 
+                myAnsiTask.execute();
 
-                MyAnsiTask myAnsiTask = (MyAnsiTask) new MyAnsiTask().execute();
-                ArrayList<String> name = myAnsiTask.getNameAgencies();
+                break;
+            case R.id.button2:
+                try {
+                    ArrayList<String> name = myAnsiTask.getNameAgencies();
 
-                Log.d("@@@", name.get(0));
+                    Log.e("@@@", name.get(1));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 break;
         }

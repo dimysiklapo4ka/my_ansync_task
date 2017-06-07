@@ -2,7 +2,6 @@ package com.example.d1mys1klapo4ka.gsonfromjson;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +13,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by d1mys1klapo4ka on 06.06.2017.
@@ -22,15 +20,15 @@ import java.util.List;
 
 public class MyAnsiTask extends AsyncTask<Void,Void,String> {
 
-    public ArrayList<String> nameAgency;
-    public ArrayList<String> priceAgency;
-    public ArrayList<String> phoneAgency;
-    public ArrayList<String> addressAgency;
-    public ArrayList<String> schrduleAgency;
-    public ArrayList<String> latitudeAgency;
-    public ArrayList<String> longitudeAgency;
-    public ArrayList<String> requisitesAgency;
-    public ArrayList<String> creditCardAgency;
+    private ArrayList<String> nameAgency = new ArrayList<>();
+    private ArrayList<String> priceAgency;
+    private ArrayList<String> phoneAgency;
+    private ArrayList<String> addressAgency;
+    private ArrayList<String> schrduleAgency;
+    private ArrayList<String> latitudeAgency;
+    private ArrayList<String> longitudeAgency;
+    private ArrayList<String> requisitesAgency;
+    private ArrayList<String> creditCardAgency;
 
     public static final String MY_TAG = "####";
 
@@ -63,22 +61,27 @@ public class MyAnsiTask extends AsyncTask<Void,Void,String> {
         }
         Log.d(MY_TAG, resultJson);
 
+        return resultJson;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+
+        Log.d("@@@@", s);
 
         JSONObject dataJsonObj = null;
 
         try {
-
-            dataJsonObj = new JSONObject(resultJson);
+            dataJsonObj = new JSONObject(s);
             JSONArray agencies = dataJsonObj.getJSONArray("agencies");
 
             // 2. перебираем и выводим необходимые данные
             for (int i = 0; i < agencies.length(); i++) {
                 JSONObject agent = agencies.getJSONObject(i);
 
-                String name = agent.getString("name");
-                //nameAgency.add(name);
-                Log.d("@@@@", name);
-
+                nameAgency.add(agent.getString("name"));
+                Log.d("@@@@", nameAgency.get(i));
 //                priceAgency.add(agent.getString("price"));
 //                phoneAgency.add(agent.getString("phone"));
 //                addressAgency.add(agent.getString("address"));
@@ -92,41 +95,6 @@ public class MyAnsiTask extends AsyncTask<Void,Void,String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Log.d(MY_TAG, resultJson);
-        return resultJson;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        Log.d("@@@@", s);
-
-//        JSONObject dataJsonObj = null;
-//
-//        try {
-//            dataJsonObj = new JSONObject(s);
-//            JSONArray agencies = dataJsonObj.getJSONArray("agencies");
-//
-//            // 2. перебираем и выводим необходимые данные
-//            for (int i = 0; i < agencies.length(); i++) {
-//                JSONObject agent = agencies.getJSONObject(i);
-//
-//                nameAgency.add(agent.getString("name"));
-//                Log.d("@@@@", nameAgency.get(i));
-//                priceAgency.add(agent.getString("price"));
-//                phoneAgency.add(agent.getString("phone"));
-//                addressAgency.add(agent.getString("address"));
-//                schrduleAgency.add(agent.getString("schrdule"));
-//                latitudeAgency.add(agent.getString("latitude"));
-//                longitudeAgency.add(agent.getString("longitude"));
-//                requisitesAgency.add(agent.getString("requisites"));
-//                creditCardAgency.add(agent.getString("credit_card"));
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
